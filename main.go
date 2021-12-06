@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/jasonwubz/weak-jwt/handlers"
+	"weak-jwt/handler"
 
 	"github.com/labstack/echo/v4"
 	"github.com/spf13/viper"
@@ -32,7 +32,7 @@ func main() {
 	e := echo.New()
 	e.HideBanner = true
 
-	e.POST("/api/Expired", handlers.ExpiredLogin)
+	e.POST("/api/Expired", handler.ExpiredLogin)
 
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
