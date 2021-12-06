@@ -29,13 +29,14 @@ func main() {
 		}
 	}
 
-	e := echo.New()
-	e.HideBanner = true
+	ec := echo.New()
+	ec.HideBanner = true
 
-	e.POST("/api/Expired", handler.ExpiredLogin)
+	ec.POST("/api/expired", handler.ExpiredLogin)
+	ec.POST("/api/expired-answer", handler.ExpiredLoginAnswer)
 
-	e.GET("/", func(c echo.Context) error {
+	ec.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
-	e.Logger.Fatal(e.Start(":1323"))
+	ec.Logger.Fatal(ec.Start(":1323"))
 }

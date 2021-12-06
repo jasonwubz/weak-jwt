@@ -31,7 +31,7 @@ func ExpiredLogin(ec echo.Context) error {
 	}
 
 	res := response{
-		Message:     "This JWT is expired 1 day ago, but you can brute-force the secret and forge your own signature",
+		Message:     "This JWT has expired 1 day ago, but you can brute-force the secret and forge your own signature",
 		AccessToken: accessToken,
 	}
 	return ec.JSON(http.StatusOK, res)
