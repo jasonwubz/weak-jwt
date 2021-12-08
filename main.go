@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"net/http"
 
+	"crypto/rand"
+	"math/big"
+	"os"
 	"weak-jwt/handler"
 
 	"github.com/labstack/echo/v4"
@@ -32,8 +35,14 @@ func main() {
 	ec := echo.New()
 	ec.HideBanner = true
 
+	// generate some random passwords
+	randomSecret, _ := rand.Int(rand.Reader, new(big.Int).SetInt64(1000000000))
+	os.Setenv("RANDOMSECRET", fmt.Sprintf("%x", randomSecret))
+
 	ec.POST("/api/expired", handler.ExpiredLogin)
 	ec.POST("/api/expired-answer", handler.ExpiredLoginAnswer)
+	ec.POST("/api/none", handler.NoneLogin)
+	ec.POST("/api/none-answer", handler.NoneAnswer)
 
 	ec.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
