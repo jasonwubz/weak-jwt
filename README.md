@@ -9,6 +9,7 @@ This server uses third party packages:
 - [Echo framework](https://github.com/labstack/echo) - for easy API development 
 - [Viper](https://github.com/spf13/viper) - for parsing configuration
 - [JWT-GO](https://github.com/dgrijalva/jwt-go) - for the most obvious reasons
+- [gosqlite-3](https://github.com/mattn/go-sqlite3) - for simulation of global shared variables
 
 ## Rules of play
 Although the intention of this server is to demonstrate vulnerabilities, you can gamify this demo. The rules of play is to avoid reading the source code for answers!
