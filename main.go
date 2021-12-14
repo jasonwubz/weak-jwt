@@ -1,17 +1,18 @@
 package main
 
 import (
+	"crypto/rand"
 	"database/sql"
 	"fmt"
+	mrand "math/rand"
 	"net/http"
-
-	"crypto/rand"
-	"math/big"
 	"os"
+	"strconv"
 	"time"
 	"weak-jwt/handler"
 
 	"github.com/labstack/echo/v4"
+	"github.com/martinlindhe/base36"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/spf13/viper"
 )
@@ -62,9 +63,12 @@ func main() {
 	// generate some random passwords
 	randomSecret := generateRandomSecret()
 	os.Setenv("RANDOMSECRET", randomSecret)
+	os.Setenv("INSECURERANDOMSECRET", insecureSecretGenerator())
 
 	ec.POST("/api/expired", handler.ExpiredLogin)
 	ec.POST("/api/expired-answer", handler.ExpiredLoginAnswer)
+	ec.POST("/api/math-rand", handler.MathRand)
+	ec.POST("/api/math-rand-answer", handler.MathRandAnswer)
 	ec.POST("/api/none", handler.NoneLogin)
 	ec.POST("/api/none-answer", handler.NoneAnswer)
 	ec.POST("/api/rotate", dbHandler.Rotate)
@@ -77,8 +81,10 @@ func main() {
 }
 
 func generateRandomSecret() string {
-	randomSecretInt, _ := rand.Int(rand.Reader, new(big.Int).SetInt64(1000000000))
-	randomSecret := fmt.Sprintf("%x", randomSecretInt)
+	b := make([]byte, 12)
+	rand.Read(b)
+	//randomSecretInt, _ := rand.Int(rand.Reader, new(big.Int).SetInt64(1000000000))
+	randomSecret := fmt.Sprintf("%x", b)
 	return randomSecret
 }
 
@@ -170,4 +176,23 @@ func createTable(db *sql.DB) {
 	if ierr != nil {
 		panic(fmt.Errorf("Fatal error, unable to insert to sqlite: %w \n", ierr))
 	}
+}
+
+func insecureSecretGenerator() string {
+	// this code tries to simulate issue outlined in https://github.com/YMFE/yapi/issues/2117
+
+	// all values of base36
+	//'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+	//'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+	//'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+	//'U', 'V', 'W', 'X', 'Y', 'Z'
+	//
+	mrand.Seed(time.Now().UnixNano())
+	randFloat := fmt.Sprintf("%v", mrand.Float64())[2:]
+	fmt.Println(randFloat)
+
+	i, _ := strconv.Atoi(randFloat)
+
+	//output is usually 11 bytes, we make it slightly easier with 10 bytes
+	return base36.Encode(uint64(i))[0:10]
 }

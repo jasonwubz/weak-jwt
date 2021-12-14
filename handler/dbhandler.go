@@ -9,7 +9,6 @@ import (
 
 	"crypto/rand"
 	"errors"
-	"math/big"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo/v4"
@@ -157,8 +156,10 @@ func trySecret(accessToken string, secret string) (error, string) {
 }
 
 func insertRandomSecret(db *sql.DB) string {
-	randomSecretInt, _ := rand.Int(rand.Reader, new(big.Int).SetInt64(1000000000))
-	randomSecret := fmt.Sprintf("%x", randomSecretInt)
+	b := make([]byte, 12)
+	rand.Read(b)
+	//randomSecretInt, _ := rand.Int(rand.Reader, new(big.Int).SetInt64(1000000000))
+	randomSecret := fmt.Sprintf("%x", b)
 
 	insertStudentSQL := `INSERT INTO secrets(secret) VALUES (?)`
 	statement, perr := db.Prepare(insertStudentSQL)
