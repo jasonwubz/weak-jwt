@@ -189,7 +189,7 @@ func insecureSecretGenerator() string {
 	//
 	mrand.Seed(time.Now().UnixNano())
 	randFloat := fmt.Sprintf("%v", mrand.Float64())[2:]
-	fmt.Println(randFloat)
+	// fmt.Println(randFloat)
 
 	i, _ := strconv.Atoi(randFloat)
 
