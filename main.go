@@ -73,6 +73,8 @@ func main() {
 	ec.POST("/api/none-answer", handler.NoneAnswer)
 	ec.POST("/api/rotate", dbHandler.Rotate)
 	ec.POST("/api/rotate-answer", dbHandler.RotatenAnswer)
+	ec.POST("/api/timing", handler.Timing)
+	ec.POST("/api/timing-answer", handler.TimingAnswer)
 
 	ec.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
