@@ -65,8 +65,8 @@ func main() {
 	os.Setenv("RANDOMSECRET", randomSecret)
 	os.Setenv("INSECURERANDOMSECRET", insecureSecretGenerator())
 
-	ec.POST("/api/expired", handler.ExpiredLogin)
-	ec.POST("/api/expired-answer", handler.ExpiredLoginAnswer)
+	ec.POST("/api/weak", handler.ExpiredLogin)
+	ec.POST("/api/weak-answer", handler.ExpiredLoginAnswer)
 	ec.POST("/api/math-rand", handler.MathRand)
 	ec.POST("/api/math-rand-answer", handler.MathRandAnswer)
 	ec.POST("/api/none", handler.NoneLogin)
