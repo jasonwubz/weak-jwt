@@ -122,7 +122,7 @@ func rotateSecrets(db *sql.DB) {
 	var rowCount int
 	for row.Next() { // Iterate and fetch the records from result cursor
 		row.Scan(&id, &secret)
-		fmt.Println("id & secret fetched from table")
+		// fmt.Println("id & secret fetched from table")
 		rowCount++
 		if rowCount > 2 {
 			if id > deleteID {
@@ -196,5 +196,9 @@ func insecureSecretGenerator() string {
 	i, _ := strconv.Atoi(randFloat)
 
 	//output is usually 11 bytes, we make it slightly easier with 10 bytes
-	return base36.Encode(uint64(i))[0:10]
+	insecure := base36.Encode(uint64(i))
+	if len(insecure) > 10 {
+		return insecure[0:10]
+	}
+	return insecure
 }

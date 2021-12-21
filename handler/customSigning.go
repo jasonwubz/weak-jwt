@@ -5,6 +5,7 @@ import (
 	"crypto/hmac"
 	"errors"
 	"fmt"
+	"time"
 
 	"github.com/dgrijalva/jwt-go"
 )
@@ -82,6 +83,8 @@ func unsafeCompare(x string, y string) (result int) {
 		if string(i) != y[idx:idx+1] {
 			return 0
 		}
+		// sleep is added to similate additional execution time to make the challenge easier
+		time.Sleep(200 * time.Millisecond)
 	}
 	return 1
 }
