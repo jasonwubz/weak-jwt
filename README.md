@@ -43,7 +43,10 @@ To access the endpoints, use POST method on the url `http://127.0.0.1:1323/api/x
 |Bad PRG|/math-rand|Returns an expired token|
 |   |/math-rand-answer|Secret is a math.random string. Requires a powerful hardware to brute-force all 10 characters that are in base 36 representation.|
 |Rotate|/rotate|Returns a valid token|
-|   |/rotate-answer|This is not a challenge. It simply demonstrates how to rotate the secret as an added layer of extra security.|
+|   |/rotate-answer|This is not a challenge. It simply demonstrates how to rotate the secret as an added layer of extra security. The solution suggested in this design is not final as the SQLite database is not encrypted. Do not copy the same solution to your production environment. This is a demo only|
 
 # Future plans
 If this project gains significant traction, I may continue to enhance it with score tracking and Capture the flag type activities. 
+
+# Disclaimers
+Use this project for educational purposes only. I do not take any responsibilities for any damages caused. Also, do not implement the exact demo solutions as they also have other security flaws.
