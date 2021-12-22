@@ -3,7 +3,7 @@ This project is an API server intentionally design with common vulnerabilities a
 
 By: Jiacheng Wu (https://github.com/jasonwubz)
 
-# Behind the scenes
+## Behind the scenes
 The exploits created for this project is a result of analysis done on existing CVEs related to JWT during the time of this writing. Why CVE analysis important? It is because existing CVEs give a broad coverage of vulnerabilities.
 
 ## Dependencies
@@ -45,8 +45,8 @@ To access the endpoints, use POST method on the url `http://127.0.0.1:1323/api/x
 |Rotate|/rotate|Returns a valid token|
 |   |/rotate-answer|This is not a challenge. It simply demonstrates how to rotate the secret as an added layer of extra security. The solution suggested in this design is not final as the SQLite database is not encrypted. Do not copy the same solution to your production environment. This is a demo only|
 
-# Future plans
+## Future plans
 If this project gains significant traction, I may continue to enhance it with score tracking and Capture the flag type activities. 
 
-# Disclaimers
+## Disclaimers
 Use this project for educational purposes only. I do not take any responsibilities for any damages caused. Also, do not implement the exact demo solutions as they also have other security flaws.
